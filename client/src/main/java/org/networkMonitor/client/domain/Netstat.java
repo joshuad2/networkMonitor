@@ -1,4 +1,4 @@
-package com.example.client.domain;
+package org.networkMonitor.client.domain;
 
 import lombok.AllArgsConstructor;
 import lombok.Builder;

@@ -1,6 +1,6 @@
-package com.example.client;
+package org.networkMonitor.client;
 
-import com.example.client.domain.Netstat;
+import org.networkMonitor.client.domain.Netstat;
 
 import java.io.File;
 import java.io.IOException;
