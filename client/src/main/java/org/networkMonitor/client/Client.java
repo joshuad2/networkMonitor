@@ -53,7 +53,7 @@ public class Client {
                             .refs(result.get(i + 6))
                             .nextref(result.get(i + 7))
                             .build();
-                    if (result.get(i + 8).startsWith("/") || result.get(i+8).startsWith("v")) {
+                    if (!result.get(i+8).startsWith("7")) {
                         if (!result.get(i + 9).startsWith("7")) {
                             ns.setAddr(result.get(i + 8) + " " + result.get(i + 9));
                             i += 10;
@@ -71,7 +71,8 @@ public class Client {
                     i++;
                 }
             }
-        } catch (ArrayIndexOutOfBoundsException e) {}
+        } catch (ArrayIndexOutOfBoundsException e) {
+        }
         System.out.println("payload length: " + payload.size());
     }
 }
