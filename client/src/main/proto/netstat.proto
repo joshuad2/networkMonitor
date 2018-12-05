@@ -1,0 +1,23 @@
+syntax = "proto3";
+option java_multiple_files = true;
+package org.networkMonitor.client.grpc;
+
+service nsRpc {
+    rpc SendNetstat(nsRpcObj) returns (successResponse) {}
+}
+
+message nsRpcObj {
+    string address = 1;
+    string type = 2;
+    string recvQ = 3;
+    string sendQ = 4;
+    string iNode = 5;
+    string conn = 6;
+    string refs = 7;
+    string nextref = 8;
+    string addr = 9;
+}
+
+message successResponse {
+    string message = 1;
+}
