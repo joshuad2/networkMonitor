@@ -1,7 +1,7 @@
 package org.networkMonitor.client.service;
 
-import com.networkmonitor.proto.NetstatObj;
 import org.junit.Test;
+import org.networkMonitor.message.grpc.NetstatObj;
 
 import java.io.File;
 import java.util.List;

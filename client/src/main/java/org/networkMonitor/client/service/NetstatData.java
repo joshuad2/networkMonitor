@@ -1,7 +1,7 @@
 package org.networkMonitor.client.service;
 
-import com.networkmonitor.proto.NetstatObj;
 import org.networkMonitor.client.domain.Netstat;
+import org.networkMonitor.message.grpc.NetstatObj;
 
 import java.io.File;
 import java.io.IOException;
@@ -46,6 +46,7 @@ public class NetstatData {
                             .conn(result.get(i + 5))
                             .refs(result.get(i + 6))
                             .nextref(result.get(i + 7))
+                            .addr("")
                             .build();
                     if (i + 8 < result.size()) {
                         String pAddr = result.get(i + 8);

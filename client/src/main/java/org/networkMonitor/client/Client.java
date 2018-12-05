@@ -1,13 +1,12 @@
 package org.networkMonitor.client;
 
-import com.networkmonitor.proto.NetstatObj;
-import com.networkmonitor.proto.NetstatRequest;
-import com.networkmonitor.proto.NetstatResponse;
-import com.networkmonitor.proto.NetstatServiceGrpc;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import org.networkMonitor.client.service.FileLoader;
 import org.networkMonitor.client.service.NetstatData;
+import org.networkMonitor.message.grpc.NetstatObj;
+import org.networkMonitor.message.grpc.NetstatRequest;
+import org.networkMonitor.message.grpc.NetstatServiceGrpc;
 
 import java.util.List;
 
@@ -19,7 +18,7 @@ public class Client {
                 .usePlaintext()
                 .build();
         NetstatServiceGrpc.NetstatServiceBlockingStub stub = NetstatServiceGrpc.newBlockingStub(channel);
-        NetstatResponse netstatResponse = stub.sendNetstat(NetstatRequest.newBuilder()
+        stub.sendNetstat(NetstatRequest.newBuilder()
                 .addAllObj(payload)
                 .build());
         channel.shutdown();

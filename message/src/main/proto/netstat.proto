@@ -1,7 +1,6 @@
 syntax = "proto3";
 package org.networkMonitor.message.grpc;
 option java_multiple_files = true;
-option java_package = "com.networkmonitor.proto";
 
 service NetstatService {
     rpc SendNetstat(NetstatRequest) returns (NetstatResponse) {}
