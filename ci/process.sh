@@ -5,5 +5,5 @@ set -eu
 env
 
 cd source-code/client
-mvn package
+mvn test
 
