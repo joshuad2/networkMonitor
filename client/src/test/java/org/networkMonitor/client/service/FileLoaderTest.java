@@ -21,8 +21,8 @@ public class FileLoaderTest {
         try (Scanner scanner = new Scanner(f)) {
             while(scanner.hasNextLine()) {
                 assertEquals(
-                        scanner.nextLine(),
-                        "7d1907ef1506d507 stream 0 0 0 7d1907ef1506c17f 0 0 /var/run/mDNSResponder"
+                        "7d1907ef1506d507 stream 0 0 0 7d1907ef1506c17f 0 0 /var/run/mDNSResponder",
+                        scanner.nextLine()
                 );
             }
         } catch (FileNotFoundException e) {
