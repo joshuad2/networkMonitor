@@ -1,10 +1,9 @@
 #!/usr/bin/env sh
 
-set -eu
+# set -eu
 
 env
 
 cd source-code/client
-mvn compile
-mvn test
+mvn package
 ls -lah target/protoc-plugins
