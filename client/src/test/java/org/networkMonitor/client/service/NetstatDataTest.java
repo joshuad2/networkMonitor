@@ -27,7 +27,20 @@ public class NetstatDataTest {
     public void processFileWithAddrContainingSpace() {
         File f = new FileLoader("filewithaddrcontainingspace.txt").getFile();
         List<Netstat> ns = NetstatData.process(f);
-        ns.forEach(System.out::println);
+        assertEquals(2, ns.size());
+    }
+
+    @Test
+    public void processFileWithAddrWithoutSlash() {
+        File f = new FileLoader("filewithaddrwithoutslash.txt").getFile();
+        List<Netstat> ns = NetstatData.process(f);
+        assertEquals(2, ns.size());
+    }
+
+    @Test
+    public void processFileWithoutAddr() {
+        File f = new FileLoader("filewithoutaddr.txt").getFile();
+        List<Netstat> ns = NetstatData.process(f);
         assertEquals(2, ns.size());
     }
 }
