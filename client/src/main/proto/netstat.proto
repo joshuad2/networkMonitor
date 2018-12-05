@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "org.networkMonitor.client";
+
+package clientgrpc;
+
+service Netstat {
+    rpc GetNetstat(Netstat) returns (Netstat) {}
+}
+
+message Netstat {
+    string address = 1;
+    string type = 2;
+    string recvQ = 3;
+    string sendQ = 4;
+    string iNode = 5;
+    string conn = 6;
+    string refs = 7;
+    string nextref = 8;
+    string addr = 9;
+}
