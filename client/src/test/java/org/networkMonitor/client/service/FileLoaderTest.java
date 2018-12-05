@@ -11,13 +11,18 @@ import static org.junit.Assert.*;
 public class FileLoaderTest {
 
     @Test
-    public void getFile() {
-        assertNotNull(FileLoader.getInstance().getFile());
+    public void getFileNoArg() {
+        assertNotNull(new FileLoader("file.txt").getFile());
+    }
+
+    @Test
+    public void getFileWithArg() {
+        assertNotNull(new FileLoader("filewithaddr.txt").getFile());
     }
 
     @Test
     public void hasCorrectContent() {
-        File f = FileLoader.getInstance().getFile();
+        File f = new FileLoader("file.txt").getFile();
         try (Scanner scanner = new Scanner(f)) {
             while(scanner.hasNextLine()) {
                 assertEquals(

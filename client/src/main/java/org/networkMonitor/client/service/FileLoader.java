@@ -8,17 +8,15 @@ import java.util.Objects;
 @Data
 public class FileLoader {
 
-    private static final String filename = "file.txt";
+    private String filename;
     private File file;
 
-    private static FileLoader ourInstance = new FileLoader();
-
-    public static FileLoader getInstance() {
-        return ourInstance;
+    public FileLoader(String fn) {
+        ClassLoader cl = ClassLoader.getSystemClassLoader();
+        this.file = new File(Objects.requireNonNull(cl.getResource(fn)).getFile());
     }
 
-    private FileLoader() {
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        this.file = new File(Objects.requireNonNull(classLoader.getResource(filename)).getFile());
+    public File getFile() {
+        return this.file;
     }
 }

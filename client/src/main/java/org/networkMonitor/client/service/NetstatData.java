@@ -64,13 +64,12 @@ public class NetstatData {
             }
         } catch (ArrayIndexOutOfBoundsException e) {
         }
-        System.out.println("payload length: " + payload.size());
-        return null;
+        return payload;
     }
 
     private static String parse(File file) {
         StringBuilder line = new StringBuilder();
-        try (Scanner scanner = new Scanner(FileLoader.getInstance().getFile())) {
+        try (Scanner scanner = new Scanner(new FileLoader("file.txt").getFile())) {
             while (scanner.hasNextLine()) {
                 line.append(scanner.nextLine());
             }
