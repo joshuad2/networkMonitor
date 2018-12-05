@@ -43,4 +43,11 @@ public class NetstatDataTest {
         List<Netstat> ns = NetstatData.process(f);
         assertEquals(2, ns.size());
     }
+
+    @Test
+    public void processFileWithBlacklist() {
+        File f = new FileLoader("filewithblacklist.txt").getFile();
+        List<Netstat> ns = NetstatData.process(f);
+        assertEquals(0, ns.size());
+    }
 }

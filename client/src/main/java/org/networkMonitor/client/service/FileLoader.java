@@ -1,14 +1,10 @@
 package org.networkMonitor.client.service;
 
-import lombok.Data;
-
 import java.io.File;
 import java.util.Objects;
 
-@Data
 public class FileLoader {
 
-    private String filename;
     private File file;
 
     public FileLoader(String fn) {
