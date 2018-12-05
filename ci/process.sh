@@ -1,11 +1,6 @@
 #!/usr/bin/env sh
 
-# set -eu
-
-env
+set -eu
 
 cd source-code/client
-mvn install
 mvn package
-pwd
-ls -lah target/protoc-plugins
