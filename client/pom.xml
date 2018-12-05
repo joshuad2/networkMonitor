@@ -36,6 +36,21 @@
             <scope>test</scope>
         </dependency>
         <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-netty</artifactId>
+            <version>1.16.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-protobuf</artifactId>
+            <version>1.16.1</version>
+        </dependency>
+        <dependency>
+            <groupId>io.grpc</groupId>
+            <artifactId>grpc-stub</artifactId>
+            <version>1.16.1</version>
+        </dependency>
+        <dependency>
             <groupId>org.networkMonitor</groupId>
             <artifactId>networkMonitorMessage</artifactId>
             <version>0.0.1-SNAPSHOT</version>
