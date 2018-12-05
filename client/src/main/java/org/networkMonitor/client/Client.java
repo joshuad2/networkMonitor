@@ -1,6 +1,7 @@
 package org.networkMonitor.client;
 
 import org.networkMonitor.client.domain.Netstat;
+import org.networkMonitor.client.service.FileLoader;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,11 +26,8 @@ public class Client {
             add("Addr");
         }};
 
-        ClassLoader classLoader = ClassLoader.getSystemClassLoader();
-        File file = new File(Objects.requireNonNull(classLoader.getResource("file.txt")).getFile());
-
         StringBuilder line = new StringBuilder();
-        try (Scanner scanner = new Scanner(file)) {
+        try (Scanner scanner = new Scanner(FileLoader.getInstance().getFile())) {
             while (scanner.hasNextLine()) {
                 line.append(scanner.nextLine());
             }
