@@ -3,11 +3,11 @@ package org.networkMonitor.message.grpc;
 option java_multiple_files = true;
 option java_package = "com.networkmonitor.proto";
 
-service nsRpc {
-    rpc SendNetstat(nsRpcObj) returns (successResponse) {}
+service NetstatService {
+    rpc SendNetstat(NetstatRequest) returns (NetstatResponse) {}
 }
 
-message nsRpcObj {
+message NetstatObj {
     string address = 1;
     string type = 2;
     string recvQ = 3;
@@ -19,6 +19,10 @@ message nsRpcObj {
     string addr = 9;
 }
 
-message successResponse {
+message NetstatRequest {
+    repeated NetstatObj obj = 1;
+}
+
+message NetstatResponse {
     string message = 1;
 }

@@ -1,12 +1,12 @@
 package org.networkMonitor.client.service;
 
+import com.networkmonitor.proto.NetstatObj;
 import org.junit.Test;
-import org.networkMonitor.client.domain.Netstat;
 
 import java.io.File;
 import java.util.List;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
 
 public class NetstatDataTest {
 
@@ -19,35 +19,35 @@ public class NetstatDataTest {
     @Test
     public void processFileWithAddr() {
         File f = new FileLoader("filewithaddr.txt").getFile();
-        List<Netstat> ns = NetstatData.process(f);
+        List<NetstatObj> ns = NetstatData.process(f);
         assertEquals(4, ns.size());
     }
 
     @Test
     public void processFileWithAddrContainingSpace() {
         File f = new FileLoader("filewithaddrcontainingspace.txt").getFile();
-        List<Netstat> ns = NetstatData.process(f);
+        List<NetstatObj> ns = NetstatData.process(f);
         assertEquals(2, ns.size());
     }
 
     @Test
     public void processFileWithAddrWithoutSlash() {
         File f = new FileLoader("filewithaddrwithoutslash.txt").getFile();
-        List<Netstat> ns = NetstatData.process(f);
+        List<NetstatObj> ns = NetstatData.process(f);
         assertEquals(2, ns.size());
     }
 
     @Test
     public void processFileWithoutAddr() {
         File f = new FileLoader("filewithoutaddr.txt").getFile();
-        List<Netstat> ns = NetstatData.process(f);
+        List<NetstatObj> ns = NetstatData.process(f);
         assertEquals(2, ns.size());
     }
 
     @Test
     public void processFileWithBlacklist() {
         File f = new FileLoader("filewithblacklist.txt").getFile();
-        List<Netstat> ns = NetstatData.process(f);
+        List<NetstatObj> ns = NetstatData.process(f);
         assertEquals(0, ns.size());
     }
 }
