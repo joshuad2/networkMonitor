@@ -1,14 +1,12 @@
 syntax = "proto3";
+option java_multiple_files = true;
+package org.networkMonitor.client.grpc;
 
-option java_package = "org.networkMonitor.client";
-
-package clientgrpc;
-
-service Netstat {
-    rpc GetNetstat(Netstat) returns (Netstat) {}
+service nsRpc {
+    rpc SendNetstat(nsRpcObj) returns (successResponse) {}
 }
 
-message Netstat {
+message nsRpcObj {
     string address = 1;
     string type = 2;
     string recvQ = 3;
@@ -18,4 +16,8 @@ message Netstat {
     string refs = 7;
     string nextref = 8;
     string addr = 9;
+}
+
+message successResponse {
+    string message = 1;
 }
