@@ -4,6 +4,6 @@ set -eu
 
 env
 
-pushd source-code/client
-  mvn package
-popd
+cd source-code/client
+mvn package
+
