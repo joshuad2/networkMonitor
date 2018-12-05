@@ -10,4 +10,4 @@ inputs:
   - name: source-code
 
 run:
-  path: source-code/process.sh
+  path: source-code/ci/process.sh
