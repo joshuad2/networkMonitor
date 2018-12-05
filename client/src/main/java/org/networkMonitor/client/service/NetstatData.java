@@ -44,12 +44,20 @@ public class NetstatData {
                             .refs(result.get(i + 6))
                             .nextref(result.get(i + 7))
                             .build();
-                    if (!result.get(i+8).startsWith("7")) {
-                        if (!result.get(i + 9).startsWith("7")) {
-                            ns.setAddr(result.get(i + 8) + " " + result.get(i + 9));
-                            i += 10;
+                    String test = result.get(i).substring(0, 2);
+                    String pAddr = result.get(i + 8);
+                    if (pAddr.length() != 16 && !pAddr.startsWith(test)) {
+                        int nextIndex = i + 9;
+                        if (nextIndex < result.size()) {
+                            if (!result.get(nextIndex).startsWith(test)) {
+                                ns.setAddr(pAddr + " " + result.get(nextIndex));
+                                i += 10;
+                            } else {
+                                ns.setAddr(pAddr);
+                                i += 9;
+                            }
                         } else {
-                            ns.setAddr(result.get(i + 8));
+                            ns.setAddr(pAddr);
                             i += 9;
                         }
                     } else {
@@ -69,7 +77,7 @@ public class NetstatData {
 
     private static String parse(File file) {
         StringBuilder line = new StringBuilder();
-        try (Scanner scanner = new Scanner(new FileLoader("file.txt").getFile())) {
+        try (Scanner scanner = new Scanner(file)) {
             while (scanner.hasNextLine()) {
                 line.append(scanner.nextLine());
             }
