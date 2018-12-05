@@ -1,0 +1,16 @@
+resources:
+- name: source-code
+  type: git
+  check_every: 10s
+  source:
+    uri: https://github.com/joshuad2/networkMonitor.git
+    branch: master
+    
+jobs:
+- name: test-and-build
+  plan:
+  - get: source-code
+    trigger: true
+  - task: process
+    file: source-code/ci/process.yml
+    
