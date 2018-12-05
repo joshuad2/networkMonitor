@@ -22,4 +22,12 @@ public class NetstatDataTest {
         List<Netstat> ns = NetstatData.process(f);
         assertEquals(4, ns.size());
     }
+
+    @Test
+    public void processFileWithAddrContainingSpace() {
+        File f = new FileLoader("filewithaddrcontainingspace.txt").getFile();
+        List<Netstat> ns = NetstatData.process(f);
+        ns.forEach(System.out::println);
+        assertEquals(2, ns.size());
+    }
 }

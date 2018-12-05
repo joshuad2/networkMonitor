@@ -45,20 +45,25 @@ public class NetstatData {
                             .nextref(result.get(i + 7))
                             .build();
                     String test = result.get(i).substring(0, 2);
-                    String pAddr = result.get(i + 8);
-                    if (pAddr.length() != 16 && !pAddr.startsWith(test)) {
-                        int nextIndex = i + 9;
-                        if (nextIndex < result.size()) {
-                            if (!result.get(nextIndex).startsWith(test)) {
-                                ns.setAddr(pAddr + " " + result.get(nextIndex));
-                                i += 10;
+                    if (i + 8 < result.size()) {
+                        String pAddr = result.get(i + 8);
+                        if (pAddr.length() != 16 && !pAddr.startsWith(test) && i + 8 < result.size()) {
+                            int nextIndex = i + 9;
+                            if (nextIndex < result.size()) {
+                                if (!result.get(nextIndex).startsWith(test)) {
+                                    ns.setAddr(pAddr + " " + result.get(nextIndex));
+                                    i += 10;
+                                } else {
+                                    ns.setAddr(pAddr);
+                                    i += 9;
+                                }
                             } else {
                                 ns.setAddr(pAddr);
                                 i += 9;
                             }
                         } else {
-                            ns.setAddr(pAddr);
-                            i += 9;
+                            ns.setAddr("");
+                            i += 8;
                         }
                     } else {
                         ns.setAddr("");
