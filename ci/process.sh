@@ -2,5 +2,7 @@
 
 set -eu
 
-cd source-code/client
+cd source-code/message
+mvn install
+cd ../client
 mvn package
