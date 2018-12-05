@@ -1,0 +1,10 @@
+syntax = "proto3";
+package netstat;
+option java_package = "com.networkmonitor.proto";
+
+/*
+	Netstat specific messages and services will be defined in this file
+*/
+message Netstat {
+
+}
