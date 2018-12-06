@@ -3,3 +3,5 @@
 /.project
 .factorypath
 .settings
+/.idea/
+*.iml
