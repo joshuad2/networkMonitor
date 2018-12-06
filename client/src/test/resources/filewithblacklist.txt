@@ -1,1 +1,0 @@
-Recv-Q Send-Q Inode Conn Refs Nextref Addr
