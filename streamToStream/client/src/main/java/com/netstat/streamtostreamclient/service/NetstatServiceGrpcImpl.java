@@ -76,7 +76,7 @@ public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImp
 
             @Override
             public void onCompleted() {
-                log.info("stream from server complete");
+//                log.info("stream from server complete");
                 finishLatch.countDown();
             }
         };
@@ -85,7 +85,7 @@ public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImp
         List<NetstatObj> convert = netstatService.convert(execute);
         NetstatRequest request = NetstatRequest.newBuilder().addAllObj(convert).build();
         try {
-            log.info("Attempting to execute request");
+//            log.info("Attempting to execute request");
             requestStreamObserver.onNext(request);
             if (finishLatch.getCount() == 0) {
                 return;
