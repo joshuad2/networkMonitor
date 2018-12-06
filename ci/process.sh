@@ -3,13 +3,13 @@
 set -eu
 
 pushd source-code/message
-  mvn install
+  mvn install -Djdk.net.URLClassPath.disableClassPathURLCheck=true
 popd
 
 pushd source-code/client
- mvn package
+ mvn package -Djdk.net.URLClassPath.disableClassPathURLCheck=true
 popd
 
 pushd source-code/server
- mvn package
+ mvn package -Djdk.net.URLClassPath.disableClassPathURLCheck=true
 popd
