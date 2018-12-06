@@ -1,0 +1,24 @@
+syntax = "proto3";
+package org.netstat.client.grpc;
+option java_multiple_files = true;
+
+service NetstatService {
+    rpc SendNetstat(NetstatRequest) returns (NetstatResponse) {}
+}
+
+message NetstatObj {
+    string proto = 1;
+    string recvQ = 2;
+    string sendQ = 3;
+    string localAddress = 4;
+    string foreignAddress = 5;
+    string state = 6;
+}
+
+message NetstatRequest {
+    repeated NetstatObj obj = 1;
+}
+
+message NetstatResponse {
+    string message = 1;
+}
