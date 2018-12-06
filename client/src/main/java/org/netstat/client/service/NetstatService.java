@@ -64,7 +64,6 @@ public class NetstatService {
                             .setState(split.get(5))
                             .build();
                 }
-                assert nso != null;
                 converted.add(nso);
             }
         });
