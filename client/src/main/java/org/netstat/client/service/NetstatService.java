@@ -13,9 +13,11 @@ import java.util.stream.IntStream;
 
 @Service
 public class NetstatService {
+    private static String os = System.getProperty("os.name").toLowerCase();
+
     public List<String> execute() {
         ProcessBuilder builder = new ProcessBuilder();
-        builder.command("netstat", "-f", "inet", "-p", "tcp");
+        builder.command("netstat", "-p", "tcp");
         Process process = null;
         try {
             process = builder.start();
@@ -42,14 +44,27 @@ public class NetstatService {
         IntStream.range(0, result.size()).forEach(idx -> {
             if (idx > 1) {
                 List<String> split = Arrays.asList(result.get(idx).replaceAll(" +", " ").split(" "));
-                NetstatObj nso = NetstatObj.newBuilder()
-                        .setProto(split.get(0))
-                        .setRecvQ(split.get(1))
-                        .setSendQ(split.get(2))
-                        .setLocalAddress(split.get(3))
-                        .setForeignAddress(split.get(4))
-                        .setState(split.get(5))
-                        .build();
+                NetstatObj nso;
+                if (os.contains("win")) {
+                    nso = NetstatObj.newBuilder()
+                            .setProto(split.get(0))
+                            .setRecvQ("")
+                            .setSendQ("")
+                            .setLocalAddress(split.get(1))
+                            .setForeignAddress(split.get(2))
+                            .setState(split.get(3))
+                            .build();
+                } else {
+                    nso = NetstatObj.newBuilder()
+                            .setProto(split.get(0))
+                            .setRecvQ(split.get(1))
+                            .setSendQ(split.get(2))
+                            .setLocalAddress(split.get(3))
+                            .setForeignAddress(split.get(4))
+                            .setState(split.get(5))
+                            .build();
+                }
+                assert nso != null;
                 converted.add(nso);
             }
         });

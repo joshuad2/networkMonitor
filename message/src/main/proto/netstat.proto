@@ -1,5 +1,5 @@
 syntax = "proto3";
-package org.networkMonitor.message.grpc;
+package org.netstat.client.grpc;
 option java_multiple_files = true;
 
 service NetstatService {
@@ -7,15 +7,12 @@ service NetstatService {
 }
 
 message NetstatObj {
-    string address = 1;
-    string type = 2;
-    string recvQ = 3;
-    string sendQ = 4;
-    string iNode = 5;
-    string conn = 6;
-    string refs = 7;
-    string nextref = 8;
-    string addr = 9;
+    string proto = 1;
+    string recvQ = 2;
+    string sendQ = 3;
+    string localAddress = 4;
+    string foreignAddress = 5;
+    string state = 6;
 }
 
 message NetstatRequest {
