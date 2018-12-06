@@ -1,8 +1,15 @@
-#!/usr/bin/env sh
+#!/usr/bin/env bash
 
 set -eu
 
-cd source-code/message
-mvn install
-cd ../client
-mvn package
+pushd source-code/message
+  mvn install
+popd
+
+pushd source-code/client
+ mvn package
+popd
+
+pushd source-code/server
+ mvn package
+popd
