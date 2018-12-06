@@ -4,3 +4,5 @@
 /.classpath
 /.DS_Store
 /.project
+.factorypath
+.settings
