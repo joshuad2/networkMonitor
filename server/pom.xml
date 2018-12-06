@@ -43,7 +43,7 @@
             <groupId>org.networkMonitor</groupId>
             <artifactId>networkMonitorMessage</artifactId>
             <version>0.0.1-SNAPSHOT</version>
-            <scope>provided</scope>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>io.github.lognet</groupId>
