@@ -14,7 +14,7 @@ public class NetworkMonitorApp extends  NetstatServiceImplBase {
 	@Override
     public void sendNetstat(NetstatRequest request,
             StreamObserver<NetstatResponse> responseObserver) {
-          asyncUnimplementedUnaryCall(NetstatServiceGrpc.METHOD_SEND_NETSTAT, responseObserver);
+          
         }
 
 }
