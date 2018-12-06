@@ -25,6 +25,11 @@
 			<artifactId>spring-boot-starter-data-rest</artifactId>
 		</dependency>
 		<dependency>
+			<groupId>io.github.lognet</groupId>
+			<artifactId>grpc-spring-boot-starter</artifactId>
+			<version>3.0.0</version>
+		</dependency>
+		<dependency>
 			<groupId>org.networkMonitor</groupId>
 			<artifactId>networkMonitorMessage</artifactId>
 			<version>0.0.1-SNAPSHOT</version>
