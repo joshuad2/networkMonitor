@@ -5,6 +5,7 @@ option java_multiple_files = true;
 service NetstatService {
     rpc SendNetstat(NetstatRequest) returns (NetstatResponse) {}
     rpc StreamNetStatResponse(NetstatRequest) returns (stream NetstatResponse) {}
+    rpc SendNetstatS2S(stream NetstatRequest) returns (stream NetstatResponse) {}
 }
 
 message NetstatObj {
