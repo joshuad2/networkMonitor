@@ -30,7 +30,14 @@ public class NetstatService {
             log.error(e.getMessage());
         }
         assert process != null;
-        StreamProcessor sp = new StreamProcessor(process.getInputStream(), stream -> callback.execute(stream));
+        StreamProcessor sp = new StreamProcessor(process.getInputStream(), stream -> {
+            try {
+                callback.execute(stream);
+            } catch (InterruptedException e) {
+                log.error("Failed executing grpc callback");
+                log.error(e.getMessage());
+            }
+        });
         Executors.newSingleThreadExecutor().submit(sp);
         int exitCode = 0;
         try {
@@ -95,5 +102,35 @@ public class NetstatService {
             }
         });
         return converted;
+    }
+
+    public NetstatObj convert(String input) {
+        List<String> split = Arrays.asList(input.replaceAll(" +", " ").split(" "));
+        NetstatObj nso;
+        log.info("stream")
+        if (!split.get(0).startsWith("input") || !split.get(0).startsWith("packets")) {
+            if (os.contains("win")) {
+                nso = NetstatObj.newBuilder()
+                        .setProto(split.get(0))
+                        .setRecvQ("")
+                        .setSendQ("")
+                        .setLocalAddress(split.get(1))
+                        .setForeignAddress(split.get(2))
+                        .setState(split.get(3))
+                        .build();
+            } else {
+                nso = NetstatObj.newBuilder()
+                        .setProto(split.get(0))
+                        .setRecvQ("")
+                        .setSendQ("")
+                        .setLocalAddress(split.get(1))
+                        .setForeignAddress(split.get(2))
+                        .setState(split.get(3))
+                        .build();
+            }
+        } else {
+            return null;
+        }
+        return nso;
     }
 }
