@@ -107,7 +107,7 @@ public class NetstatService {
     public NetstatObj convert(String input) {
         List<String> split = Arrays.asList(input.replaceAll(" +", " ").split(" "));
         NetstatObj nso;
-        log.info("stream")
+        log.info("stream");
         if (!split.get(0).startsWith("input") || !split.get(0).startsWith("packets")) {
             if (os.contains("win")) {
                 nso = NetstatObj.newBuilder()

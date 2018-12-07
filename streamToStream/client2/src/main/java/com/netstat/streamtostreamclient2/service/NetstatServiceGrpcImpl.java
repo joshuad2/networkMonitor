@@ -11,7 +11,7 @@ import org.netstat.client.grpc.NetstatServiceGrpc;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.CommandLineRunner;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
@@ -20,7 +20,7 @@ import java.util.concurrent.TimeUnit;
 
 @Component
 @GRpcService
-public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImplBase implements CommandLineRunner {
+public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImplBase {
 
     private final NetstatService netstatService;
     private final ManagedChannel channel;
@@ -56,6 +56,7 @@ public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImp
         };
     }
 
+    @Scheduled(fixedRate = 2500)
     private void runProcedure() throws InterruptedException {
         final CountDownLatch finishLatch = new CountDownLatch(1);
         StreamObserver<NetstatRequest> requestStreamObserver = stub.sendNetstatS2S(createResponse(finishLatch));
@@ -77,32 +78,8 @@ public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImp
         }
     }
 
-    @Override
-    public void run(String... args) throws Exception {
-
-        final CountDownLatch finishLatch = new CountDownLatch(1);
-        StreamObserver<NetstatRequest> requestStreamObserver = stub.sendNetstatS2S(createResponse(finishLatch));
-        netstatService.execute(stream -> {
-            NetstatObj payload = netstatService.convert(stream);
-            if (payload == null) {
-                return;
-            }
-            log.info(payload.toString());
-            NetstatRequest request = NetstatRequest.newBuilder().addObj(payload).build();
-            requestStreamObserver.onNext(request);
-            if (finishLatch.getCount() == 0) {
-                return;
-            }
-            requestStreamObserver.onCompleted();
-            if (!finishLatch.await(1, TimeUnit.MINUTES)) {
-                log.warn("sendNetstatS2S cannot finish within 1 minute");
-            }
-
-        });
-    }
-
     private StreamObserver<NetstatResponse> createResponse(CountDownLatch finishLatch) {
-        StreamObserver<NetstatResponse> response = new StreamObserver<NetstatResponse>() {
+        return new StreamObserver<NetstatResponse>() {
             @Override
             public void onNext(NetstatResponse value) {
                 log.info("received response from server: {}", value.getMessage());
@@ -119,6 +96,5 @@ public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImp
                 finishLatch.countDown();
             }
         };
-        return response;
     }
 }
