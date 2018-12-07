@@ -1,7 +1,7 @@
-package com.netstat.streamtostreamclient.service;
+package com.netstat.streamtostreamclient2.service;
 
-import com.netstat.streamtostreamclient.util.GrpcCallback;
-import com.netstat.streamtostreamclient.util.StreamProcessor;
+import com.netstat.streamtostreamclient2.util.GrpcCallback;
+import com.netstat.streamtostreamclient2.util.StreamProcessor;
 import org.netstat.client.grpc.NetstatObj;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

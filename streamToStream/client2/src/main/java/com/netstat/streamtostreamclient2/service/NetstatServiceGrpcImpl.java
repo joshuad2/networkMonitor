@@ -1,4 +1,4 @@
-package com.netstat.streamtostreamclient.service;
+package com.netstat.streamtostreamclient2.service;
 
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;

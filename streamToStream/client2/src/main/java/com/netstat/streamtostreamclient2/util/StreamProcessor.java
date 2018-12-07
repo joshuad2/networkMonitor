@@ -1,4 +1,4 @@
-package com.netstat.streamtostreamclient.util;
+package com.netstat.streamtostreamclient2.util;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
