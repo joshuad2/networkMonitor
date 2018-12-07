@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.util.Iterator;
 import java.util.List;
 
 @RestController
@@ -27,7 +28,7 @@ public class NetstatControllerV1 {
         this.netstatService = netstatService;
     }
 
-    @GetMapping("/netstat")
+    @GetMapping("/netstatStream")
     public ResponseEntity getNetstat() {
         List<String> payload = netstatService.execute();
         payload.forEach(System.out::println);
@@ -36,9 +37,11 @@ public class NetstatControllerV1 {
                 .usePlaintext()
                 .build();
         NetstatServiceGrpc.NetstatServiceBlockingStub stub = NetstatServiceGrpc.newBlockingStub(channel);
-        NetstatResponse netstatResponse = stub.sendNetstat(NetstatRequest.newBuilder()
+        Iterator<NetstatResponse> resp=stub.streamNetStatResponse(NetstatRequest.newBuilder()
                 .addAllObj(body)
                 .build());
-        return new ResponseEntity<>(netstatResponse.getMessage(), HttpStatus.OK);
+        StringBuilder sb=new StringBuilder();
+        resp.forEachRemaining(s->{sb.append(s.getMessage());});
+        return new ResponseEntity<>(sb.toString(), HttpStatus.OK);
     }
 }
