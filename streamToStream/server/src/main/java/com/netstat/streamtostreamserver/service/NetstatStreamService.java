@@ -25,20 +25,18 @@ public class NetstatStreamService extends NetstatServiceGrpc.NetstatServiceImplB
             @Override
             public void onNext(NetstatRequest value) {
                 log.info("onNext called with value count: {}", value.getObjCount());
-                List<NetstatObj> req = new ArrayList<>();
-                IntStream.range(0, value.getObjCount()).forEach(index -> req.add(value.getObj(index)));
-                List<NetstatResponse> res = new ArrayList<>();
-                req.forEach(request -> res.add(NetstatResponse.newBuilder().setMessage(
-                        "Successfully received netstat object with: " +
-                                request.getProto() + " " +
-                                request.getRecvQ() + " " +
-                                request.getSendQ() + " " +
-                                request.getLocalAddress() + " " +
-                                request.getForeignAddress() + " " +
-                                request.getState()
-                ).build()));
-                log.info("response count: {}", res.size());
-                res.forEach(responseObserver::onNext);
+                IntStream.range(0, value.getObjCount()).forEach(index -> {
+                    NetstatObj request = value.getObj(index);
+                    responseObserver.onNext(NetstatResponse.newBuilder().setMessage(
+                            "Successfully received netstat object with: " +
+                                    request.getProto() + " " +
+                                    request.getRecvQ() + " " +
+                                    request.getSendQ() + " " +
+                                    request.getLocalAddress() + " " +
+                                    request.getForeignAddress() + " " +
+                                    request.getState()
+                    ).build());
+                });
             }
 
             @Override
