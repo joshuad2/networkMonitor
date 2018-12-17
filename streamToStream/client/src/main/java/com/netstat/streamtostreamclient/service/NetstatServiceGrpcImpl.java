@@ -18,7 +18,7 @@ import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
 
 @Component
-public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImplBase {
+public class NetstatServiceGrpcImpl {
 
     private final NetstatService netstatService;
 
