@@ -15,7 +15,7 @@ import java.util.stream.IntStream;
 public class NetstatService {
     private static String os = System.getProperty("os.name").toLowerCase();
 
-    public List<String> execute() {
+    List<String> execute() {
         ProcessBuilder builder = new ProcessBuilder();
         builder.command("netstat", "-p", "tcp");
         Process process = null;
@@ -39,7 +39,7 @@ public class NetstatService {
         return result;
     }
 
-    public List<NetstatObj> convert(List<String> result) {
+    List<NetstatObj> convert(List<String> result) {
         List<NetstatObj> converted = new ArrayList<>();
         IntStream.range(0, result.size()).forEach(idx -> {
             if (idx > 1) {

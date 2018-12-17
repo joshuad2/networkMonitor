@@ -3,7 +3,6 @@ package com.netstat.streamtostreamclient.service;
 import io.grpc.ManagedChannel;
 import io.grpc.ManagedChannelBuilder;
 import io.grpc.stub.StreamObserver;
-import org.lognet.springboot.grpc.GRpcService;
 import org.netstat.client.grpc.NetstatObj;
 import org.netstat.client.grpc.NetstatRequest;
 import org.netstat.client.grpc.NetstatResponse;
@@ -17,46 +16,22 @@ import org.springframework.stereotype.Component;
 import java.util.List;
 import java.util.concurrent.CountDownLatch;
 import java.util.concurrent.TimeUnit;
-import java.util.concurrent.locks.ReentrantLock;
 
 @Component
-@GRpcService
 public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImplBase {
 
     private final NetstatService netstatService;
 
     private Logger log = LoggerFactory.getLogger(NetstatServiceGrpcImpl.class);
-    private final ManagedChannel channel;
     private final NetstatServiceGrpc.NetstatServiceStub stub;
-    private final ReentrantLock lock = new ReentrantLock();
 
     @Autowired
     public NetstatServiceGrpcImpl(NetstatService netstatService) {
-        this.channel = ManagedChannelBuilder.forAddress("localhost", 6565)
+        final ManagedChannel channel = ManagedChannelBuilder.forAddress("localhost", 6565)
                 .usePlaintext()
                 .build();
         this.stub = NetstatServiceGrpc.newStub(channel);
         this.netstatService = netstatService;
-    }
-
-    @Override
-    public StreamObserver<NetstatRequest> sendNetstatS2S(StreamObserver<NetstatResponse> responseObserver) {
-        return new StreamObserver<NetstatRequest>() {
-            @Override
-            public void onNext(NetstatRequest value) {
-                log.info("value: {}", value);
-            }
-
-            @Override
-            public void onError(Throwable t) {
-                log.info("error: {}", t.getMessage());
-            }
-
-            @Override
-            public void onCompleted() {
-                log.info("completed");
-            }
-        };
     }
 
     @Scheduled(fixedRate = 5000)
@@ -71,12 +46,13 @@ public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImp
             @Override
             public void onError(Throwable t) {
                 log.info("error receiving response from server");
+                log.error("received error message: {}", t.getMessage());
                 finishLatch.countDown();
             }
 
             @Override
             public void onCompleted() {
-//                log.info("stream from server complete");
+                log.info("stream from server complete");
                 finishLatch.countDown();
             }
         };
@@ -85,7 +61,7 @@ public class NetstatServiceGrpcImpl extends NetstatServiceGrpc.NetstatServiceImp
         List<NetstatObj> convert = netstatService.convert(execute);
         NetstatRequest request = NetstatRequest.newBuilder().addAllObj(convert).build();
         try {
-//            log.info("Attempting to execute request");
+            log.info("Attempting to execute request");
             requestStreamObserver.onNext(request);
             if (finishLatch.getCount() == 0) {
                 return;
